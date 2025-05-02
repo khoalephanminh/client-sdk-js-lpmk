@@ -330,6 +330,11 @@ export default abstract class LocalTrack<
         streamConstraints.audio = deviceId ? { deviceId } : true;
       }
 
+      // Add deviceId to otherConstraints
+      if (deviceId) {
+        (otherConstraints as MediaTrackConstraints).deviceId = deviceId;
+      }
+
       // these steps are duplicated from setMediaStreamTrack because we must stop
       // the previous tracks before new tracks can be acquired
       this.attachedElements.forEach((el) => {
