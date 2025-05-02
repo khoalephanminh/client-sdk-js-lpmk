@@ -317,7 +317,7 @@ export default abstract class LocalTrack<
       const { deviceId, facingMode, ...otherConstraints } = constraints;
       this.log.debug('restarting track with constraints', { ...this.logContext, constraints });
 
-      console.log("deviceId", deviceId);
+      this.log.debug("deviceId", deviceId);
 
       const streamConstraints: MediaStreamConstraints = {
         audio: false,
