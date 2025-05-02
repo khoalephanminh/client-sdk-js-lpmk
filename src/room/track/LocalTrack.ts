@@ -347,8 +347,13 @@ export default abstract class LocalTrack<
       this._mediaStreamTrack.stop();
 
       // create new track and attach
-      // const mediaStream = await navigator.mediaDevices.getUserMedia(streamConstraints);
-      const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: otherConstraints });
+      let mediaStream: MediaStream;
+      if (this.kind === Track.Kind.Video) {
+        mediaStream = await navigator.mediaDevices.getUserMedia(streamConstraints);
+      } else {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: otherConstraints });
+      }
+      
       console.log("constraints streamConstraints=", streamConstraints);
       console.log("constraints otherConstraints=", otherConstraints);
       const newTrack = mediaStream.getTracks()[0];
