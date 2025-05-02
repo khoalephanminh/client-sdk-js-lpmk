@@ -317,8 +317,7 @@ export default abstract class LocalTrack<
       const { deviceId, facingMode, ...otherConstraints } = constraints;
       this.log.debug('restarting track with constraints', { ...this.logContext, constraints });
 
-      this.log.debug("deviceId23", deviceId);
-      console.log("deviceId", deviceId);
+      this.log.debug("deviceId", deviceId);
 
       const streamConstraints: MediaStreamConstraints = {
         audio: false,
@@ -343,7 +342,10 @@ export default abstract class LocalTrack<
       this._mediaStreamTrack.stop();
 
       // create new track and attach
-      const mediaStream = await navigator.mediaDevices.getUserMedia(streamConstraints);
+      // const mediaStream = await navigator.mediaDevices.getUserMedia(streamConstraints);
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: otherConstraints });
+      console.log("constraints streamConstraints=", streamConstraints);
+      console.log("constraints otherConstraints=", otherConstraints);
       const newTrack = mediaStream.getTracks()[0];
       await newTrack.applyConstraints(otherConstraints);
       newTrack.addEventListener('ended', this.handleEnded);
